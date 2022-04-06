@@ -129,3 +129,15 @@ cat -n data_photo.txt_2 |grep 26467
  26467	         "desc" : "人：越来越不男不女了；钱：越来越不干不净了；友：越来越不好不坏了；情：越来越不咸不淡了；义：越来越不轻不重了；官：越来越不清不白了；理：越来越不清不楚了；心：越来越不红不黒\了；话：越来越不冷不热了；爱：越来越不死不活了；路：越来越不明不暗了。",
 
 ```
+✈<font color=	#FF4500 size=4 style="font-family:Courier New">该工具用到的库学习，你可以参考阅读：</font>
+
+ - [python os 文件操作](https://blog.csdn.net/xixihahalelehehe/article/details/104253123?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164922216216780264038190%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164922216216780264038190&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-104253123.nonecase&utm_term=python%20os&spm=1018.2226.3001.4450)
+ - [python sys系统](https://ghostwritten.blog.csdn.net/article/details/106693564)
+ - [python random随机生成](https://blog.csdn.net/xixihahalelehehe/article/details/118733682?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163635739416780271594216%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=163635739416780271594216&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-118733682.pc_v2_rank_blog_default&utm_term=random&spm=1018.2226.3001.4450)
+ - [python time时间处理](https://ghostwritten.blog.csdn.net/article/details/108998768)
+ - [python json文本处理](https://ghostwritten.blog.csdn.net/article/details/106550900)
+ - [python requests url处理](https://blog.csdn.net/xixihahalelehehe/article/details/108996025?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164922239616781685346565%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=164922239616781685346565&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-108996025.nonecase&utm_term=requests&spm=1018.2226.3001.4450)
+ - [python collections](https://zhuanlan.zhihu.com/p/343747724)
+ - [python Selenium](https://zhuanlan.zhihu.com/p/111859925)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c2b2517f9b2747d6a6b1d4a17d8f8f4c.gif#pic_center)
