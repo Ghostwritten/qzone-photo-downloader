@@ -1,4 +1,3 @@
-@[toc]
 
 这是我fork 关于[dslwind/qzone-photo-downloader](https://github.com/dslwind/qzone-photo-downloader)的小工具：QQ 空间照片下载器项目，但由于时间长久，下载已经失效。因此我对此做了改进修补工作，这是我的[QQ 空间照片下载器demo](https://github.com/ghostwriten/qzone-photo-downloader)。但你还以直接用更好功能更全的关于qq空间的[wwwpf/QzoneExporter](https://github.com/wwwpf/QzoneExporter)项目。
 
@@ -48,6 +47,33 @@ $ apt install libnss3-dev  chromium-bsu
 
 ```bash
 $ python3 downloader.py 
+.......
+正在下载相册 绘画治疗 的第 52 张图片
+正在下载相册 绘画治疗 的第 53 张图片
+正在下载相册 绘画治疗 的第 54 张图片
+正在下载相册 绘画治疗 的第 55 张图片
+正在下载相册 绘画治疗 的第 56 张图片
+正在下载相册 绘画治疗 的第 57 张图片
+正在下载相册 绘画治疗 的第 58 张图片
+正在下载相册 绘画治疗 的第 59 张图片
+正在下载相册 绘画治疗 的第 60 张图片
+正在下载相册 绘画治疗 的第 61 张图片
+正在下载相册 绘画治疗 的第 62 张图片
+正在下载相册 绘画治疗 的第 63 张图片
+正在下载相册 绘画治疗 的第 64 张图片
+正在下载相册 绘画治疗 的第 65 张图片
+正在下载相册 绘画治疗 的第 66 张图片
+正在下载相册 绘画治疗 的第 67 张图片
+正在下载相册 绘画治疗 的第 68 张图片
+正在下载相册 绘画治疗 的第 69 张图片
+正在下载相册 绘画治疗 的第 70 张图片
+正在下载相册 插画欣赏 的第 1 张图片
+正在下载相册 插画欣赏 的第 2 张图片
+正在下载相册 插画欣赏 的第 3 张图片
+正在下载相册 插画欣赏 的第 4 张图片
+正在下载相册 插画欣赏 的第 5 张图片
+正在下载相册 插画欣赏 的第 6 张图片
+.......
 ```
 
 ## 4 问题
@@ -140,4 +166,4 @@ cat -n data_photo.txt_2 |grep 26467
  - [python collections](https://zhuanlan.zhihu.com/p/343747724)
  - [python Selenium](https://zhuanlan.zhihu.com/p/111859925)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c2b2517f9b2747d6a6b1d4a17d8f8f4c.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c2b2517f9b2747d6a6b1d4a17d8f8f4c.gif#pic_center#pic_center)
