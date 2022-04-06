@@ -3,17 +3,23 @@
 import os
 import random
 import time
+import json
 from collections import namedtuple
 
 import requests
 from selenium import webdriver
+import chromedriver_binary
+chrome_options = webdriver.chrome.options.Options()
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--headless')
 
 from io_in_out import *
 
 curpath = os.path.dirname(os.path.realpath(__file__))
 curpath = io_in_arg(curpath)
 
-QzoneAlbum = namedtuple('QzoneAlbum', ['uid', 'name', 'count'])
+QzoneAlbum = namedtuple('QzoneAlbum', ['id', 'name', 'total'])
 QzonePhoto = namedtuple('QzonePhoto', ['url', 'name', 'album'])
 
 
@@ -57,8 +63,6 @@ def func_save_photo(arg):
     session, user, album_index, album_name, index, photo = arg
 
     dest_path = os.path.join(func_save_dir(user), album_name.strip())
-    # if not os.path.exists(dest_path):
-    #     os.makedirs(dest_path)
 
     fn = u'{0}_{1}.jpeg'.format(index, photo.name)
 
@@ -79,8 +83,8 @@ def func_save_photo(arg):
 
     url = photo.url.replace('\\', '')
     attempts = 0
-    timeout = 10
-    while attempts < 10:
+    timeout = 15
+    while attempts < 15:
         try:
             req = func_save_photo_net_helper(session, url, timeout)
             break
@@ -123,9 +127,11 @@ class QzonePhotoManager(object):
         self.user = user
         self.password = password
 
-        driver = webdriver.Chrome('./chromedriver')
+       # driver = webdriver.Chrome()
+       # driver = webdriver.Chrome('./chromedriver')
+        driver = webdriver.Chrome('./chromedriver',chrome_options=chrome_options)
         # 使用 get() 方法打开待抓取的 URL
-        driver.get('http://user.qzone.qq.com')
+        driver.get('https://user.qzone.qq.com')
         time.sleep(15)
         # 等待 5 秒后，判断页面是否需要登录，通过查找页面是否有相应的 DIV 的 id 来判断
         try:
@@ -163,6 +169,7 @@ class QzonePhotoManager(object):
         cookies_dict = {c['name']: c['value'] for c in cookies}
 
         self.cookie = cookies_dict
+        #print(cookies_dict)
         self.session = ""
         self.qzone_g_tk = self.calc_g_tk(cookies_dict['p_skey'])
 
@@ -186,42 +193,44 @@ class QzonePhotoManager(object):
         # r = self.session.get(url, timeout=timeout)
         c = r.text
         c = c.replace('shine0_Callback(', '').replace(');', '')
-        # print(c)
+        #write_to_json('./data.txt', json.dumps(c))
+        #write_to_json('./data.txt', c)
         return c
 
     def get_albums(self, dest_user):
-        import json
         albums = []
         url = self.albumbase.format(gtk=self.qzone_g_tk,
                                     t=random.Random().random(),
                                     dest_user=dest_user,
                                     user=self.user)
-        # print(url)
         c = self.access_net(url, timeout=8)
         if c:
+            c = c.replace('\\', '\\\\')
+            #write_to_json('./data.txt', c)
+            #c = read_from_json('./data.txt')
             c = json.loads(c)
-            if ('data' in c) and ('albumListModeSort' in c['data']):
-                for i in c['data']['albumListModeSort']:
-                    albums.append(
-                        QzoneAlbum._make([i['id'], i['name'], i['total']]))
-        # print(albums)
+            if ('data' in c) and ('albumListModeClass' in c['data']):
+                for i in c['data']['albumListModeClass']:
+                  for a in i['albumList']:
+                     albums.append(
+                     QzoneAlbum._make([a['id'], a['name'], a['total']]))
         return albums
 
     def get_photos_by_album(self, dest_user, album):
-        import json
 
         photos = []
         url = self.photobase.format(gtk=self.qzone_g_tk,
                                     t=random.Random().random(),
                                     dest_user=dest_user,
                                     user=self.user,
-                                    album_id=album.uid)
-        print(url)
+                                    album_id=album.id)
         c = self.access_net(url, timeout=10)
-        print(c)
 
         if c:
+            c = c.replace('\\', '\\\\')
+            #write_to_json('./data_photo.txt', c)
             c = json.loads(c)
+            #c = read_from_json('./data_photo.txt')
             if 'data' in c and 'photoList' in c['data']:
                 photolist = c['data']['photoList']
 
@@ -248,7 +257,7 @@ class QzonePhotoManager(object):
         io_print(u'获取到 {0} 个相册'.format(len(albums)))
 
         for i in range(len(albums)):
-            print(albums[i].name)
+
             dest_path = os.path.join(func_save_dir(dest_user), albums[i].name)
             if not os.path.exists(dest_path):
                 os.makedirs(dest_path)
@@ -275,12 +284,12 @@ class QzonePhotoManager(object):
 
 def entry():
     # 你的 QQ和密码，QQ号必须写，密码可以省略，然后使用网页快速登录功能
-    main_user = 123456
-    main_pass = ''
+    main_user = '2653027126'
+    main_pass = 'Lhdmyrzbd121.'
 
     # 要处理的目标 QQ 号，此处可填入多个QQ号，中间用逗号隔开
     dest_users = [
-        123456,
+        2653027126,
     ]
 
     a = QzonePhotoManager(main_user, main_pass)
@@ -291,6 +300,16 @@ def entry():
         io_print(u'正在处理用户 {0}'.format(e))
         a.get_photos(e)
         io_print(u'处理完成')
+
+
+def read_from_json(filename):
+    jsonfile = open(filename, "r",encoding='utf-8')
+    jsondata = jsonfile.read()
+    return json.loads(jsondata)
+
+def write_to_json(filename, data):
+    jsonfile = open(filename, "w")
+    jsonfile.write(data)
 
 
 if __name__ == '__main__':
