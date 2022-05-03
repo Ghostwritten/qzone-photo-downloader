@@ -4,6 +4,7 @@ import os
 import random
 import time
 import json
+import argparse 
 from collections import namedtuple
 
 import requests
@@ -282,24 +283,26 @@ class QzonePhotoManager(object):
             io_stderr_print(u'未找到 {0} 可下载的相册'.format(dest_user))
 
 
-def entry():
+def main():
     # 你的 QQ和密码，QQ号必须写，密码可以省略，然后使用网页快速登录功能
-    main_user = '2653027126'
-    main_pass = 'Lhdmyrzbd121.'
 
     # 要处理的目标 QQ 号，此处可填入多个QQ号，中间用逗号隔开
-    dest_users = [
-        2653027126,
-    ]
+    parser = argparse.ArgumentParser()
 
-    a = QzonePhotoManager(main_user, main_pass)
+    parser.add_argument('-u', '--user', dest='user',type=str,  required=True, help='QQ name')
+    parser.add_argument('-p', '--passwd', dest='passwd',type=str,  required=True, help='QQ password')
+
+    args = parser.parse_args()
+    qq_user = args.user
+    qq_passwd = args.passwd
+
+    a = QzonePhotoManager(qq_user, qq_passwd)
     io_print(u'登录成功')
 
     # 如果遇到下载失败的，产生超时异常终止程序运行的，可以再重新运行，已经下载过的文件不会重新下载
-    for e in dest_users:
-        io_print(u'正在处理用户 {0}'.format(e))
-        a.get_photos(e)
-        io_print(u'处理完成')
+    io_print(u'正在处理用户 {0}'.format(qq_user))
+    a.get_photos(qq_user)
+    io_print(u'处理完成')
 
 
 def read_from_json(filename):
@@ -313,4 +316,4 @@ def write_to_json(filename, data):
 
 
 if __name__ == '__main__':
-    entry()
+    main()
